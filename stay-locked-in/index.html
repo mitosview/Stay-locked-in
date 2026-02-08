@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stay Locked In</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+        --bg: #0f1115;
+        --card: #171a21;
+        --accent: #6dd6ff;
+        --accent-strong: #34b7ff;
+        --text: #f7f7f9;
+        --muted: #b7bec9;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top, rgba(109, 214, 255, 0.25), transparent 45%),
+          var(--bg);
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+        padding: 48px 20px 80px;
+      }
+
+      .page {
+        width: min(1100px, 100%);
+        display: flex;
+        flex-direction: column;
+        gap: 64px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .logo {
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      nav {
+        display: flex;
+        gap: 24px;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      nav a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 32px;
+        align-items: center;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        line-height: 1.1;
+        margin-bottom: 18px;
+      }
+
+      .hero p {
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 1.05rem;
+      }
+
+      .hero-actions {
+        margin-top: 28px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .button {
+        padding: 12px 24px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .button.primary {
+        background: linear-gradient(120deg, var(--accent), var(--accent-strong));
+        color: #0b0d12;
+      }
+
+      .button.secondary {
+        border-color: #2d333d;
+        color: var(--text);
+        background: transparent;
+      }
+
+      .hero-card {
+        background: var(--card);
+        border-radius: 24px;
+        padding: 28px;
+        display: grid;
+        gap: 18px;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      .hero-card h2 {
+        font-size: 1.1rem;
+      }
+
+      .hero-card ul {
+        list-style: none;
+        display: grid;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .metric {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      .metric strong {
+        color: var(--text);
+        font-size: 1.3rem;
+      }
+
+      .pill {
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(109, 214, 255, 0.12);
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.8rem;
+        width: fit-content;
+      }
+
+      section.features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+      }
+
+      .feature {
+        background: var(--card);
+        border-radius: 20px;
+        padding: 22px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .feature h3 {
+        font-size: 1.1rem;
+      }
+
+      .schedule {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+        background: rgba(109, 214, 255, 0.08);
+        border-radius: 24px;
+        padding: 28px;
+      }
+
+      .schedule h2 {
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+      }
+
+      .schedule-item {
+        background: var(--card);
+        border-radius: 18px;
+        padding: 18px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .schedule-item span {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .quotes {
+        display: grid;
+        gap: 18px;
+      }
+
+      .quote {
+        padding: 20px 22px;
+        border-radius: 18px;
+        background: var(--card);
+        display: grid;
+        gap: 10px;
+      }
+
+      .quote strong {
+        font-size: 0.95rem;
+      }
+
+      .cta {
+        background: linear-gradient(140deg, rgba(109, 214, 255, 0.15), transparent 60%),
+          var(--card);
+        border-radius: 24px;
+        padding: 30px;
+        display: grid;
+        gap: 16px;
+      }
+
+      .cta h2 {
+        font-size: 1.6rem;
+      }
+
+      footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 720px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        nav {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="logo">Stay Locked In</div>
+        <nav>
+          <a href="#focus">Focus Modes</a>
+          <a href="#rituals">Daily Rituals</a>
+          <a href="#progress">Progress</a>
+          <a href="#community">Community</a>
+          <a href="#schedule">Schedule</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div>
+          <div class="pill">Focus platform</div>
+          <h1>Design your day around deep work and steady momentum.</h1>
+          <p>
+            Stay Locked In keeps your attention anchored with guided focus sessions, gentle
+            accountability, and a calm interface that celebrates every finished block.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#">Start a focus sprint</a>
+            <a class="button secondary" href="#">Watch the walkthrough</a>
+          </div>
+        </div>
+        <div class="hero-card" aria-label="Focus dashboard preview">
+          <h2>Today's flow</h2>
+          <ul>
+            <li>08:30 • Intentional planning</li>
+            <li>10:00 • Deep focus sprint</li>
+            <li>13:15 • Restoration walk</li>
+          </ul>
+          <div class="metric">
+            <span>Locked-in streak</span>
+            <strong>12 days</strong>
+          </div>
+          <div class="metric">
+            <span>Focus minutes today</span>
+            <strong>135</strong>
+          </div>
+          <div class="metric">
+            <span>Next ritual</span>
+            <strong>Reflect &amp; reset</strong>
+          </div>
+          <div class="metric">
+            <span>Team momentum</span>
+            <strong>84%</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="focus">
+        <article class="feature">
+          <h3>Focus Modes</h3>
+          <p>Choose calm, sprint, or recovery sessions and let the interface adapt to your pace.</p>
+        </article>
+        <article class="feature" id="rituals">
+          <h3>Daily Rituals</h3>
+          <p>Checklists, micro-prompts, and quick reflections keep momentum without distraction.</p>
+        </article>
+        <article class="feature" id="progress">
+          <h3>Progress Signals</h3>
+          <p>See your streaks, energy, and deep-work balance with a glance.</p>
+        </article>
+        <article class="feature" id="community">
+          <h3>Quiet Community</h3>
+          <p>Small focus circles for gentle accountability and shared wins.</p>
+        </article>
+      </section>
+
+      <section class="schedule" id="schedule">
+        <div>
+          <h2>Build a steady rhythm</h2>
+          <p>
+            Map your day with simple blocks and reflections. Stay Locked In highlights when to push,
+            when to pause, and how to protect the work that matters most.
+          </p>
+        </div>
+        <div class="schedule-item">
+          <strong>Morning anchor</strong>
+          <span>Set intentions, choose a focus mode, and schedule the first sprint.</span>
+        </div>
+        <div class="schedule-item">
+          <strong>Midday reset</strong>
+          <span>Short reflections and guided breaks keep energy high without burnout.</span>
+        </div>
+        <div class="schedule-item">
+          <strong>Evening review</strong>
+          <span>Capture wins, close loops, and plan tomorrow's momentum.</span>
+        </div>
+      </section>
+
+      <section class="quotes">
+        <div class="quote">
+          <p>
+            “The focus sprints helped our team reclaim the quiet hours. We're shipping with less
+            stress.”
+          </p>
+          <strong>— Maya, Product Lead</strong>
+        </div>
+        <div class="quote">
+          <p>
+            “I finally have a ritual for planning and shutting down. It's the calmest my week has
+            felt in years.”
+          </p>
+          <strong>— Alex, Founder</strong>
+        </div>
+      </section>
+
+      <section class="cta">
+        <h2>Ready to lock in?</h2>
+        <p>
+          Start with a single 25-minute sprint or invite your team to build a shared rhythm. We'll
+          guide every session.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#">Book a demo</a>
+          <a class="button secondary" href="#">Start free</a>
+        </div>
+      </section>
+
+      <footer>
+        <span>Designed for builders, thinkers, and creators.</span>
+        <span>Reach the team: hello@staylockedin.com</span>
+      </footer>
+    </div>
+  </body>
+</html>
