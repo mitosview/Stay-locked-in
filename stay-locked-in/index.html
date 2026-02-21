@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Macro Calculator | Stay Locked In</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #0f172a;
+        --card: #ffffff;
+        --muted: #64748b;
+        --primary: #2563eb;
+        --primary-hover: #1d4ed8;
+        --border: #e2e8f0;
+        --success-bg: #ecfeff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        background: radial-gradient(circle at top, #1e293b, var(--bg) 55%);
+        min-height: 100vh;
+        color: #0f172a;
+        display: grid;
+        place-items: center;
+        padding: 1.25rem;
+      }
+
+      .app {
+        width: min(700px, 100%);
+        background: var(--card);
+        border-radius: 20px;
+        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(120deg, #1d4ed8, #0ea5e9);
+        color: white;
+        padding: 1.5rem;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+      }
+
+      .header p {
+        margin: 0.5rem 0 0;
+        opacity: 0.95;
+      }
+
+      form {
+        padding: 1.5rem;
+        display: grid;
+        gap: 1rem;
+      }
+
+      .grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      }
+
+      label {
+        font-size: 0.9rem;
+        color: var(--muted);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0.35rem;
+      }
+
+      input,
+      select {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 0.65rem 0.75rem;
+        font-size: 1rem;
+        color: #0f172a;
+      }
+
+      input:focus,
+      select:focus {
+        outline: 2px solid rgba(37, 99, 235, 0.3);
+        border-color: var(--primary);
+      }
+
+      button {
+        border: none;
+        border-radius: 10px;
+        padding: 0.85rem 1rem;
+        background: var(--primary);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: var(--primary-hover);
+      }
+
+      .results {
+        margin-top: 0.25rem;
+        background: var(--success-bg);
+        border: 1px solid #bae6fd;
+        border-radius: 12px;
+        padding: 1rem;
+        display: grid;
+        gap: 0.5rem;
+      }
+
+      .results h2 {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      .macro-row {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed #cbd5e1;
+        padding: 0.35rem 0;
+      }
+
+      .macro-row:last-child {
+        border-bottom: none;
+      }
+
+      .disclaimer {
+        margin-top: 0.25rem;
+        color: var(--muted);
+        font-size: 0.83rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <header class="header">
+        <h1>Stay Locked In — Macro Calculator</h1>
+        <p>Get your daily calories, protein, carbs, and fats in seconds.</p>
+      </header>
+
+      <form id="macro-form">
+        <div class="grid">
+          <div>
+            <label for="sex">Sex</label>
+            <select id="sex" name="sex" required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="age">Age (years)</label>
+            <input id="age" name="age" type="number" min="14" max="100" value="28" required />
+          </div>
+
+          <div>
+            <label for="weight">Weight (kg)</label>
+            <input id="weight" name="weight" type="number" min="35" max="250" step="0.1" value="72" required />
+          </div>
+
+          <div>
+            <label for="height">Height (cm)</label>
+            <input id="height" name="height" type="number" min="130" max="240" value="175" required />
+          </div>
+
+          <div>
+            <label for="activity">Activity level</label>
+            <select id="activity" name="activity" required>
+              <option value="1.2">Sedentary</option>
+              <option value="1.375">Lightly active</option>
+              <option value="1.55" selected>Moderately active</option>
+              <option value="1.725">Very active</option>
+              <option value="1.9">Athlete / extremely active</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="goal">Goal</label>
+            <select id="goal" name="goal" required>
+              <option value="-500">Fat loss (-500 kcal)</option>
+              <option value="-250">Slow cut (-250 kcal)</option>
+              <option value="0" selected>Maintenance</option>
+              <option value="250">Lean bulk (+250 kcal)</option>
+              <option value="500">Bulk (+500 kcal)</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit">Calculate Macros</button>
+
+        <section class="results" id="results" aria-live="polite">
+          <h2>Your Daily Targets</h2>
+          <div class="macro-row"><span>Calories</span><strong id="calories">—</strong></div>
+          <div class="macro-row"><span>Protein</span><strong id="protein">—</strong></div>
+          <div class="macro-row"><span>Carbs</span><strong id="carbs">—</strong></div>
+          <div class="macro-row"><span>Fat</span><strong id="fat">—</strong></div>
+        </section>
+
+        <p class="disclaimer">
+          Formula: Mifflin-St Jeor BMR with activity multiplier. Macros split to 30% protein,
+          40% carbs, 30% fat.
+        </p>
+      </form>
+    </main>
+
+    <script>
+      const form = document.getElementById("macro-form");
+      const calories = document.getElementById("calories");
+      const protein = document.getElementById("protein");
+      const carbs = document.getElementById("carbs");
+      const fat = document.getElementById("fat");
+
+      function round(value) {
+        return Math.round(value);
+      }
+
+      function calculateTargets(values) {
+        const { sex, age, weight, height, activity, goal } = values;
+        const base = 10 * weight + 6.25 * height - 5 * age + (sex === "male" ? 5 : -161);
+        const tdee = base * activity;
+        const targetCalories = Math.max(1200, tdee + goal);
+
+        const proteinGrams = (targetCalories * 0.3) / 4;
+        const carbGrams = (targetCalories * 0.4) / 4;
+        const fatGrams = (targetCalories * 0.3) / 9;
+
+        return {
+          calories: round(targetCalories),
+          protein: round(proteinGrams),
+          carbs: round(carbGrams),
+          fat: round(fatGrams),
+        };
+      }
+
+      function render(targets) {
+        calories.textContent = `${targets.calories} kcal`;
+        protein.textContent = `${targets.protein} g`;
+        carbs.textContent = `${targets.carbs} g`;
+        fat.textContent = `${targets.fat} g`;
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+
+        const targets = calculateTargets({
+          sex: data.get("sex"),
+          age: Number(data.get("age")),
+          weight: Number(data.get("weight")),
+          height: Number(data.get("height")),
+          activity: Number(data.get("activity")),
+          goal: Number(data.get("goal")),
+        });
+
+        render(targets);
+      });
+
+      form.requestSubmit();
+    </script>
+  </body>
+</html>
