@@ -1,0 +1,10 @@
+{
+  "name": "omni-track-ai",
+  "version": "0.1.0",
+  "description": "OmniTrack AI domain core and verification harness",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/runWalkthroughs.js",
+    "demo": "node src/index.js"
+  }
+}
