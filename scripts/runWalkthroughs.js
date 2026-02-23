@@ -52,6 +52,7 @@ function walkthroughProtocolsMealPlanningSyncAndFeedback() {
   assert.equal(keto.trackMetric, 'netCarbs');
   assert.equal(Boolean(fasting.timerEnabled), true);
   assert.equal(plan.days.length, 7);
+  assert.notStrictEqual(plan.days[0].meals, plan.days[1].meals);
   plan.days[0].meals.dinner = 'Steak + sweet potato + asparagus';
   assert.notEqual(plan.days[0].meals.dinner, plan.days[1].meals.dinner);
   assert.equal(syncResult.status, 'ok');

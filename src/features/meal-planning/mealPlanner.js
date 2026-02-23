@@ -13,7 +13,7 @@ export class MealPlanner {
       calorieTarget,
       days: Array.from({ length: 7 }, (_, index) => ({
         day: index + 1,
-        meals: { ...dailyTemplate }
+        meals: structuredClone(dailyTemplate)
       })),
       shoppingList: [
         'Greek yogurt', 'Berries', 'Chia seeds', 'Chicken breast',
